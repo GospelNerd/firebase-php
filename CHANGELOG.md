@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+
+* Bumped the minimum PHP version requirement to PHP 7.2
+
 ## 4.19.1 - 2019-03-10
 
 * Improved the error message when encountering an invalid Service Account specification to help developers use
