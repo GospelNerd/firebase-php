@@ -3,6 +3,7 @@
 ## Unreleased
 
 * Bumped the minimum PHP version requirement to PHP 7.2
+* Increased PHPStan's strictness to maximum level and fixed newly discovered issues
 
 ## 4.19.1 - 2019-03-10
 
