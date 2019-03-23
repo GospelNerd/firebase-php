@@ -70,6 +70,37 @@ class Auth
 
     /**
      * @param int $maxResults
+     * @param int $pageToken
+     *
+     * @return array
+     */
+    public function listUsersPage(int $maxResults = null,string $pageToken = null): array
+    {
+        $maxResults = $maxResults ?? 100;
+        $count = 0;
+
+        $response = $this->client->downloadAccount($maxResults, $pageToken);
+        $result = JSON::decode((string) $response->getBody(), true);
+        $users = [];
+
+        foreach ((array) ($result['users'] ?? []) as $userData) {
+            $users[] = UserRecord::fromResponseData($userData);
+
+            if (++$count === $maxResults) {
+                break;
+            }
+        }
+
+        $pageToken = $result['nextPageToken'] ?? null;
+
+        return [
+            'users' => $users,
+            'nextPageToken' => $pageToken,
+        ];
+    }
+
+    /**
+     * @param int $maxResults
      * @param int $batchSize
      *
      * @return \Generator|UserRecord[]
